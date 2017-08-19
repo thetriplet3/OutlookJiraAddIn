@@ -42,9 +42,12 @@
         </ComboBox>
         <Label x:Name="___No_Name__Copy3" Content="Labels" HorizontalAlignment="Left" Margin="10,323,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtSummary_Copy1" HorizontalAlignment="Left" Height="23" Margin="131,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" ToolTip="seperate tags by a space"/>
-        <Button x:Name="btnCreate" Content="Create Issue" HorizontalAlignment="Left" Margin="131,351,0,0" VerticalAlignment="Top" Width="145" Height="41" Click="btnCreate_Click"/>
+        <Button x:Name="btnCreate" Content="Create Issue" HorizontalAlignment="Left" Margin="131,351,0,0" VerticalAlignment="Top" Width="145" Height="41" Click="btnCreate_Click" />
         <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject" HorizontalAlignment="Left" Margin="281,351,0,0" VerticalAlignment="Top" Width="136"/>
         <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" HorizontalAlignment="Left" Margin="281,374,0,0" VerticalAlignment="Top" Width="136"/>
-
+        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch">
+            <ProgressBar IsIndeterminate="True" VerticalContentAlignment="Bottom" />
+        </StackPanel>
     </Grid>
+    
 </Window>

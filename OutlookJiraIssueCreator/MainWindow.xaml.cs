@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace OutlookJiraIssueCreator
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-
+            //prbLoading.Visibility = Visibility.Visible;
         }
     }
 }
