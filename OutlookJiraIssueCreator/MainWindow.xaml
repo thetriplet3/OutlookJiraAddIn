@@ -1,0 +1,50 @@
+﻿<Window x:Class="OutlookJiraIssueCreator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OutlookJiraIssueCreator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="454.901" Width="475.98"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Label Content="Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbJiraServer" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top" Width="286" SelectedIndex="0">
+            <ComboBoxItem Content="http://jira"/>
+            <ComboBoxItem Content="http://jiratest"/>
+        </ComboBox>
+        <Label x:Name="___No_Name_" Content="Project" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtProject" HorizontalAlignment="Left" Height="23" Margin="131,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
+        <Label Content="Issue Type" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbIssueType" HorizontalAlignment="Left" Margin="131,71,0,0" VerticalAlignment="Top" Width="286" SelectedIndex="0">
+            <ComboBoxItem Content="Bug"/>
+            <ComboBoxItem Content="User Story"/>
+        </ComboBox>
+        <Label x:Name="___No_Name__Copy" Content="Issue Summary" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtSummary" HorizontalAlignment="Left" Height="23" Margin="131,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
+        <Label x:Name="___No_Name__Copy1" Content="Issue Description" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDesc" HorizontalAlignment="Left" Height="125" Margin="131,132,0,166" TextWrapping="Wrap" Width="286" AutomationProperties.HelpText="Description" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top"/>
+        <Label x:Name="___No_Name__Copy2" Content="Issue Summary" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtSummary_Copy" HorizontalAlignment="Left" Height="23" Margin="131,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
+        <Label Content="Priority" HorizontalAlignment="Left" Margin="10,262,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbPriority" HorizontalAlignment="Left" Margin="131,262,0,0" VerticalAlignment="Top" Width="286" SelectedIndex="2">
+            <ComboBoxItem Content="One"/>
+            <ComboBoxItem Content="Two"/>
+            <ComboBoxItem Content="Three"/>
+            <ComboBoxItem Content="Four"/>
+        </ComboBox>
+        <Label x:Name="___No_Name__Copy3" Content="Labels" HorizontalAlignment="Left" Margin="10,323,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtSummary_Copy1" HorizontalAlignment="Left" Height="23" Margin="131,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" ToolTip="seperate tags by a space"/>
+        <Button x:Name="btnCreate" Content="Create Issue" HorizontalAlignment="Left" Margin="131,351,0,0" VerticalAlignment="Top" Width="145" Height="41" Click="btnCreate_Click"/>
+        <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject" HorizontalAlignment="Left" Margin="281,351,0,0" VerticalAlignment="Top" Width="136"/>
+        <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" HorizontalAlignment="Left" Margin="281,374,0,0" VerticalAlignment="Top" Width="136"/>
+
+    </Grid>
+</Window>
