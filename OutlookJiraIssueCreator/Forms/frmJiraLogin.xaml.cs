@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OutlookJiraIssueCreator.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,24 @@ namespace OutlookJiraIssueCreator.Forms
         public frmJiraLogin()
         {
             InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Authenticator.AuthenticateUser(this.txtServer.Text, this.txtUsername.Text, this.txtPassword.Password);
+                Properties.Settings.Default.JiraServer = txtServer.Text;
+                Properties.Settings.Default.JiraUsername = txtUsername.Text;
+                Properties.Settings.Default.JiraPassword = txtPassword.Password;
+                Properties.Settings.Default.Save();
+                this.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error logging to JIRA.");
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OutlookJiraIssueCreator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="518.613" Width="475.98"
+        Title="MainWindow" Height="518.613" Width="673.98"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,40 +17,101 @@
     <Grid>
         <materialDesign:ColorZone x:Name="clzHeader" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" DockPanel.Dock="Top" Height="61">
+
             <DockPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">Jira Issue Creator</TextBlock>
+                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                        x:Name="MenuToggleButton" Visibility="Hidden"/>
+                <materialDesign:PopupBox x:Name="ppbSettings" DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="True">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                                    <Setter Property="Margin" Value="8,8,8,8"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="15"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="8,0,0,16">Jira Settings</TextBlock>
+                            <ComboBox Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="Jira Server" materialDesign:HintAssist.IsFloating="True"
+                                  MaxDropDownHeight="200"
+                                  Margin="8 8 8 8">
+                                <ComboBoxItem>http://jira/</ComboBoxItem>
+                                <ComboBoxItem>http://jiratest/</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Column="0" Grid.Row="2" materialDesign:HintAssist.Hint="Username" />
+                            <TextBox Grid.Column="0" Grid.Row="3" materialDesign:HintAssist.Hint="Password" />
+                            <Grid Grid.Column="0" Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="15"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignRaisedButton}"  
+                                    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="0,0,16,0">
+                                    Save
+                                </Button>
+                                <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="0,0,16,0">
+                                    Clear
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Jira Issue Creator</TextBlock>
             </DockPanel>
+
         </materialDesign:ColorZone>
         <Label Content="Server" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbJiraServer" HorizontalAlignment="Left" Margin="131,80,0,0" VerticalAlignment="Top" Width="286" SelectedIndex="0">
+        <ComboBox x:Name="cmbJiraServer" HorizontalAlignment="Left" Margin="131,80,0,0" VerticalAlignment="Top" Width="504" SelectedIndex="0">
             <ComboBoxItem Content="http://jira"/>
             <ComboBoxItem Content="http://jiratest"/>
         </ComboBox>
         <Label x:Name="___No_Name_" Content="Project" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtProject" HorizontalAlignment="Left" Height="23" Margin="131,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
+        <TextBox x:Name="txtProject" HorizontalAlignment="Left" Height="23" Margin="131,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="504"/>
         <Label Content="Issue Type" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbIssueType" HorizontalAlignment="Left" Margin="131,141,0,0" VerticalAlignment="Top" Width="286" SelectedIndex="0">
+        <ComboBox x:Name="cmbIssueType" HorizontalAlignment="Left" Margin="131,141,0,0" VerticalAlignment="Top" Width="504" SelectedIndex="0">
             <ComboBoxItem Content="Bug"/>
             <ComboBoxItem Content="User Story"/>
         </ComboBox>
         <Label x:Name="___No_Name__Copy" Content="Issue Summary" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtSummary" HorizontalAlignment="Left" Height="23" Margin="131,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
+        <TextBox x:Name="txtSummary" HorizontalAlignment="Left" Height="23" Margin="131,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="504"/>
         <Label x:Name="___No_Name__Copy1" Content="Issue Description" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDesc" HorizontalAlignment="Left" Height="125" Margin="131,202,0,0" TextWrapping="Wrap" Width="286" AutomationProperties.HelpText="Description" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
-        <Label x:Name="___No_Name__Copy2" Content="Issue Summary" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtSummary_Copy" HorizontalAlignment="Left" Height="23" Margin="131,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"/>
+        <TextBox x:Name="txtDesc" HorizontalAlignment="Left" Height="125" Margin="131,202,0,0" TextWrapping="Wrap" Width="504" AutomationProperties.HelpText="Description" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+        <Label x:Name="___No_Name__Copy2" Content="Category" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Height="23" Margin="131,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="504"/>
         <Label Content="Priority" HorizontalAlignment="Left" Margin="10,332,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbPriority" HorizontalAlignment="Left" Margin="131,332,0,0" VerticalAlignment="Top" Width="286" SelectedIndex="2">
+        <ComboBox x:Name="cmbPriority" HorizontalAlignment="Left" Margin="131,332,0,0" VerticalAlignment="Top" Width="504" SelectedIndex="2">
             <ComboBoxItem Content="One"/>
             <ComboBoxItem Content="Two"/>
             <ComboBoxItem Content="Three"/>
             <ComboBoxItem Content="Four"/>
         </ComboBox>
         <Label x:Name="___No_Name__Copy3" Content="Labels" HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtSummary_Copy1" HorizontalAlignment="Left" Height="23" Margin="131,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" ToolTip="seperate tags by a space"/>
-        <Button x:Name="btnCreate" Content="Create Issue" HorizontalAlignment="Left" Margin="131,421,0,0" VerticalAlignment="Top" Width="145" Height="41" Click="btnCreate_Click" />
-        <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject" HorizontalAlignment="Left" Margin="281,421,0,0" VerticalAlignment="Top" Width="136"/>
-        <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" HorizontalAlignment="Left" Margin="281,444,0,0" VerticalAlignment="Top" Width="136"/>
+        <TextBox x:Name="txtLabels" HorizontalAlignment="Left" Height="23" Margin="131,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="504" ToolTip="seperate tags by a space"/>
+        <Button x:Name="btnCreate" Content="Create Issue" HorizontalAlignment="Left" Margin="131,421,0,0" VerticalAlignment="Top" Width="363" Height="41" Click="btnCreate_Click" />
+        <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject" HorizontalAlignment="Left" Margin="499,421,0,0" VerticalAlignment="Top" Width="136"/>
+        <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" HorizontalAlignment="Left" Margin="499,444,0,0" VerticalAlignment="Top" Width="136"/>
         <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch">
             <ProgressBar x:Name="prbLoading" IsIndeterminate="True" VerticalContentAlignment="Bottom" Visibility="Hidden"/>
         </StackPanel>
