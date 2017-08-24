@@ -29,6 +29,7 @@ namespace OutlookJiraIssueCreator
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             this.prbLoading.Visibility = Visibility.Visible;
+            
             this.btnCreate.IsEnabled = false;
             this.btnCreate.Content = "Creating Issue...";
         }

@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize">
     <Grid>
-        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+        <materialDesign:ColorZone x:Name="clzHeader" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" DockPanel.Dock="Top" Height="61">
             <DockPanel>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">Jira Issue Creator</TextBlock>
