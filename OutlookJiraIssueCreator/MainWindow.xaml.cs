@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Outlook;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Office.Interop.Outlook;
 using OutlookJiraIssueCreator.Classes;
 using OutlookJiraIssueCreator.Forms;
 using RestSharp;
@@ -25,6 +26,7 @@ namespace OutlookJiraIssueCreator
         string priority = "Three";
         string summary;
         string description;
+        bool isAuthed = false;
 
         string[] labels;
         string user = "tratlk";
@@ -37,52 +39,80 @@ namespace OutlookJiraIssueCreator
             InitializeComponent();
             worker = new BackgroundWorker();
             worker.DoWork += worker_DoWork;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            worker.RunWorkerCompleted += worker_workCompleted;
+
+            txtProject.Text = Properties.Settings.Default.JiraProject;
+            txtCategory.Text = Properties.Settings.Default.JiraCategory;
+
+            cmbJiraServer.Text = Properties.Settings.Default.JiraServer;
+            txtUsername.Text = Properties.Settings.Default.JiraUsername;
+            txtPassword.Password = Properties.Settings.Default.JiraPassword;
 
         }
 
         
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            this.prbLoading.Visibility = Visibility.Visible;
-            this.btnCreate.Content = "Creating Issue...";
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.JiraServer) ||
+                string.IsNullOrWhiteSpace(Properties.Settings.Default.JiraUsername) ||
+                string.IsNullOrWhiteSpace(Properties.Settings.Default.JiraPassword))
+            {
+                ppbSettings.IsPopupOpen = true;
+            }
+            else
+            {
+                isAuthed = true;
+            }
 
-            this.IsEnabled = false;
+            if (isAuthed)
+            {
+                prbLoading.Visibility = Visibility.Visible;
+                btnCreate.Content = "Creating Issue...";
 
-            this.project = this.txtProject.Text;
-            this.type = this.cmbIssueType.Text;
-            this.priority = this.cmbPriority.Text;
-            this.summary = this.txtSummary.Text;
-            this.description = this.txtDesc.Text;
-            this.labels = this.txtLabels.Text.Split(' ');
+                IsEnabled = false;
 
-            this.worker.RunWorkerAsync();
+                project = txtProject.Text;
+                type = cmbIssueType.Text;
+                priority = cmbPriority.Text;
+                summary = txtSummary.Text;
+                description = txtDesc.Text;
+                labels = txtLabels.Text.Split(' ');
+
+                worker.RunWorkerAsync(); 
+            }
 
         }
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void worker_workCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.btnCreate.Content = "Create Issue";
-            this.prbLoading.Visibility = Visibility.Hidden;
-            this.IsEnabled = true;
+            if(e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+            else
+            {
+                Properties.Settings.Default.JiraCategory = txtCategory.Text;
+                Properties.Settings.Default.JiraProject = txtProject.Text;
+
+                Properties.Settings.Default.Save();
+            }
+            btnCreate.Content = "Create Issue";
+            prbLoading.Visibility = Visibility.Hidden;
+            IsEnabled = true;
         }
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.CreateIssue();
+            CreateIssue();
         }
 
         bool CreateIssue()
         {
+            
             RestClient restClient = new RestClient(server);
             RestRequest request = new RestRequest("/rest/auth/1/session", Method.GET);
             bool bReturn = false;
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.JiraUsername) ||
-                string.IsNullOrWhiteSpace(Properties.Settings.Default.JiraPassword))
-            {
-                frmJiraLogin jiraLogin = new frmJiraLogin();
-                jiraLogin.ShowDialog();
-            }
+
             restClient.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.JiraUsername, Properties.Settings.Default.JiraPassword);
             request.RequestFormat = RestSharp.DataFormat.Json;
 
@@ -97,19 +127,19 @@ namespace OutlookJiraIssueCreator
                     {
                         project = new
                         {
-                            key = this.project
+                            key = project
                         },
-                        summary = this.summary,
-                        description = this.description,
+                        summary = summary,
+                        description = description,
                         issuetype = new
                         {
-                            name = this.type
+                            name = type
                         },
                         priority = new
                         {
-                            name = this.priority
+                            name = priority
                         },
-                        labels = this.labels
+                        labels = labels
                     }
                 };
 
@@ -141,6 +171,10 @@ namespace OutlookJiraIssueCreator
                     System.Diagnostics.Process.Start(url);
                     bReturn = true;
                 }
+                else
+                {
+                    throw new System.Exception(status.ToString());
+                }
             }
             else
             {
@@ -149,9 +183,9 @@ namespace OutlookJiraIssueCreator
                     Authenticator.AuthenticateUser(Properties.Settings.Default.JiraServer, Properties.Settings.Default.JiraUsername, Properties.Settings.Default.JiraPassword);
 
                 }
-                catch (System.Exception)
+                catch (System.Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
             bReturn = false;
@@ -159,10 +193,26 @@ namespace OutlookJiraIssueCreator
             return bReturn;
         }
 
-        private void btnSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            frmJiraLogin jiraLogin = new frmJiraLogin();
-            jiraLogin.ShowDialog();
+            try
+            {
+                isAuthed = Authenticator.AuthenticateUser(cmbJiraServer.Text, txtUsername.Text, txtPassword.Password);
+                Properties.Settings.Default.JiraServer = cmbJiraServer.Text;
+                Properties.Settings.Default.JiraUsername = txtUsername.Text;
+                Properties.Settings.Default.JiraPassword = txtPassword.Password;
+                Properties.Settings.Default.Save();
+                txtHead.Text = "Logged in succefully!";
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

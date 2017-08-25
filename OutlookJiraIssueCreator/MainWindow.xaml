@@ -29,6 +29,10 @@
                                     <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
                                     <Setter Property="Margin" Value="8,8,8,8"/>
                                 </Style>
+                                <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignPasswordBox}">
+                                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                                    <Setter Property="Margin" Value="8,8,8,8"/>
+                                </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"/>
@@ -43,15 +47,16 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="8,0,0,16">Jira Settings</TextBlock>
-                            <ComboBox Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="Jira Server" materialDesign:HintAssist.IsFloating="True"
+                            <TextBlock x:Name="txtHead" Grid.Column="0" Grid.Row="0" Margin="8,0,0,16">Jira Settings</TextBlock>
+                            <ComboBox x:Name="cmbJiraServer" Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="Jira Server" materialDesign:HintAssist.IsFloating="True"
                                   MaxDropDownHeight="200"
-                                  Margin="8 8 8 8">
+                                  Margin="8 8 8 8"
+                                  SelectedIndex="0">
                                 <ComboBoxItem>http://jira/</ComboBoxItem>
                                 <ComboBoxItem>http://jiratest/</ComboBoxItem>
                             </ComboBox>
-                            <TextBox Grid.Column="0" Grid.Row="2" materialDesign:HintAssist.Hint="Username" />
-                            <TextBox Grid.Column="0" Grid.Row="3" materialDesign:HintAssist.Hint="Password" />
+                            <TextBox x:Name="txtUsername" Grid.Column="0" Grid.Row="2" materialDesign:HintAssist.Hint="Username" />
+                            <PasswordBox x:Name="txtPassword" Grid.Column="0" Grid.Row="3" materialDesign:HintAssist.Hint="Password" />
                             <Grid Grid.Column="0" Grid.Row="4">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="15"/>
@@ -64,12 +69,12 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignRaisedButton}"  
-                                    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="0,0,16,0">
+                                <Button x:Name="btnSave" Grid.Column="1" Grid.Row="0" Style="{StaticResource MaterialDesignRaisedButton}"  
+                                    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="0,0,16,0" Click="btnSave_Click">
                                     Save
                                 </Button>
-                                <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="0,0,16,0">
+                                <Button x:Name="btnClear" Grid.Column="2" Grid.Row="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="0,0,16,0" Click="btnClear_Click">
                                     Clear
                                 </Button>
                             </Grid>
@@ -82,13 +87,9 @@
             </DockPanel>
 
         </materialDesign:ColorZone>
-        <Label Content="Server" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbJiraServer" HorizontalAlignment="Left" Margin="131,80,0,0" VerticalAlignment="Top" Width="504" SelectedIndex="0">
-            <ComboBoxItem Content="http://jira"/>
-            <ComboBoxItem Content="http://jiratest"/>
-        </ComboBox>
         <Label x:Name="___No_Name_" Content="Project" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtProject" HorizontalAlignment="Left" Height="23" Margin="131,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="504"/>
+        
         <Label Content="Issue Type" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cmbIssueType" HorizontalAlignment="Left" Margin="131,141,0,0" VerticalAlignment="Top" Width="504" SelectedIndex="0">
             <ComboBoxItem Content="Bug"/>
