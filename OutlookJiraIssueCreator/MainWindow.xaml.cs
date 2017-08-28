@@ -2,6 +2,7 @@
 using Microsoft.Office.Interop.Outlook;
 using OutlookJiraIssueCreator.Classes;
 using OutlookJiraIssueCreator.Forms;
+using OutlookJiraIssueCreator.Models;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -37,6 +38,8 @@ namespace OutlookJiraIssueCreator
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new Jira();
+
             worker = new BackgroundWorker();
             worker.DoWork += worker_DoWork;
             worker.RunWorkerCompleted += worker_workCompleted;

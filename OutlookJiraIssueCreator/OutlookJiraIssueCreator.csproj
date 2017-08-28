@@ -66,7 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Forms\frmJiraLogin.xaml">
+    <Page Include="Forms\frmIssueCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,8 +79,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Authenticator.cs" />
-    <Compile Include="Forms\frmJiraLogin.xaml.cs">
-      <DependentUpon>frmJiraLogin.xaml</DependentUpon>
+    <Compile Include="Classes\ControllerValidator.cs" />
+    <Compile Include="Forms\frmIssueCreator.xaml.cs">
+      <DependentUpon>frmIssueCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -88,6 +89,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Jira.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
