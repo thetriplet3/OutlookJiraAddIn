@@ -7,17 +7,17 @@
         xmlns:domain="clr-namespace:OutlookJiraIssueCreator.Classes"
         xmlns:models="clr-namespace:OutlookJiraIssueCreator.Models"
         mc:Ignorable="d"
-        Title="MainWindow" Height="743.613" Width="673.98"
+        Title="MainWindow" Height="644.613" Width="673.98"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize">
     <Grid>
-        <materialDesign:ColorZone x:Name="clzHeader" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+        <materialDesign:ColorZone x:Name="clzHeader" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                             Mode="PrimaryMid" DockPanel.Dock="Top" Height="61">
 
             <DockPanel>
@@ -96,71 +96,84 @@
         <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch">
             <ProgressBar x:Name="prbLoading" IsIndeterminate="True" VerticalContentAlignment="Bottom" Visibility="Hidden"/>
         </StackPanel>
-        <Grid Margin="0,45,0,0">
-            <Grid.Resources>
-                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
-                    <Setter Property="Margin" Value="8,3"/>
-                </Style>
-            </Grid.Resources>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBox x:Name="txtProject" Grid.Column="0" Grid.Row="0"  materialDesign:HintAssist.Hint="Project" materialDesign:HintAssist.IsFloating="True">
-                <TextBox.Text>
-                    <Binding Path="JiraProject" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBox x:Name="txtSummary" Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="Summary" materialDesign:HintAssist.IsFloating="True">
-                <TextBox.Text>
-                    <Binding Path="JiraIssueSummary" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBox x:Name="txtDesc" Grid.Column="0" Grid.Row="2" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True"/>
-            <TextBox x:Name="txtCategory" Grid.Column="0" Grid.Row="3" materialDesign:HintAssist.Hint="Category" materialDesign:HintAssist.IsFloating="True" />
-            <TextBox x:Name="txtLabels" Grid.Column="0" Grid.Row="4" ToolTip="seperate tags by a space" materialDesign:HintAssist.Hint="Labels" materialDesign:HintAssist.IsFloating="True"/>
-            <Grid Grid.Column="0" Grid.Row="5">
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="8,40,8,0">
+            <Grid Margin="0">
+                <Grid.Resources>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                        <Setter Property="Margin" Value="16,0"/>
+                    </Style>
+                </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="75"/>
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="cmbIssueType"  Grid.Column="0" Grid.Row="0" SelectedIndex="0" Margin="8,0" materialDesign:HintAssist.Hint="Issue Type" materialDesign:HintAssist.IsFloating="True">
-                    <ComboBoxItem Content="Bug"/>
-                    <ComboBoxItem Content="Bug(Ext)"/>
-                    <ComboBoxItem Content="User Story"/>
-                </ComboBox>
-                <ComboBox x:Name="cmbPriority" Grid.Column="1" Grid.Row="0" SelectedIndex="2" Margin="8,0" materialDesign:HintAssist.Hint="Priority" materialDesign:HintAssist.IsFloating="True">
-                    <ComboBoxItem Content="One"/>
-                    <ComboBoxItem Content="Two"/>
-                    <ComboBoxItem Content="Three"/>
-                    <ComboBoxItem Content="Four"/>
-                </ComboBox>
+                <TextBox x:Name="txtProject" Grid.Column="0" Grid.Row="0"  materialDesign:HintAssist.Hint="Project" materialDesign:HintAssist.IsFloating="True" Height="48">
+                    <TextBox.Text>
+                        <Binding Path="JiraProject" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox x:Name="txtSummary" Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="Summary" materialDesign:HintAssist.IsFloating="True" Height="48">
+                    <TextBox.Text>
+                        <Binding Path="JiraIssueSummary" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox x:Name="txtDesc" Grid.Column="0" Grid.Row="2" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" TextWrapping="Wrap" Margin="16,20,8,3" />
+                <TextBox x:Name="txtCategory" Grid.Column="0" Grid.Row="3" materialDesign:HintAssist.Hint="Category" materialDesign:HintAssist.IsFloating="True" Height="48"/>
+                <TextBox x:Name="txtLabels" Grid.Column="0" Grid.Row="4" ToolTip="seperate tags by a space" materialDesign:HintAssist.Hint="Labels" materialDesign:HintAssist.IsFloating="True" Height="48"/>
+                <Grid Grid.Column="0" Grid.Row="5" Margin="8,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="cmbIssueType"  Grid.Column="0" Grid.Row="0" SelectedIndex="0" Margin="8,3" materialDesign:HintAssist.Hint="Issue Type" materialDesign:HintAssist.IsFloating="True">
+                        <ComboBoxItem Content="Bug"/>
+                        <ComboBoxItem Content="Bug(Ext)"/>
+                        <ComboBoxItem Content="User Story"/>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbPriority" Grid.Column="1" Grid.Row="0" SelectedIndex="2" Margin="8,5" materialDesign:HintAssist.Hint="Priority" materialDesign:HintAssist.IsFloating="True">
+                        <ComboBoxItem Content="One"/>
+                        <ComboBoxItem Content="Two"/>
+                        <ComboBoxItem Content="Three"/>
+                        <ComboBoxItem Content="Four"/>
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="6" Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnCreate" Content="Create Issue" Grid.Column="1" Grid.Row="0" Click="btnCreate_Click" Height="Auto" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,3,10,0"  />
+                    <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject"  Grid.Column="3" Grid.Row="0"  Height="24"/>
+                    <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" Grid.Column="3" Grid.Row="1"  Height="24"/>
+                </Grid>
             </Grid>
-        </Grid>
-        <Button x:Name="btnCreate" Content="Create Issue" HorizontalAlignment="Left" Margin="131,648,0,0" VerticalAlignment="Top" Width="363" Height="40" Click="btnCreate_Click" />
-        <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject" HorizontalAlignment="Left" Margin="499,648,0,0" VerticalAlignment="Top" Width="136"/>
-        <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" HorizontalAlignment="Left" Margin="499,670,0,0" VerticalAlignment="Top" Width="136"/>
+        </materialDesign:Card>
     </Grid>
 
 </Window>
