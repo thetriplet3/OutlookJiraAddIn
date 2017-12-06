@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="Ribbon_Load">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabAddIns">
+        <group id="MailGroup" label="Jira">
+          <button id="btnJira" label="Create a Jira Issue"
+               screentip="Text" onAction="OnJiraButton"
+               supertip="Creates Jira issue from the mail."
+               size="large" getImage="LoadImage"/>
+        </group>
+      </tab>
+    </tabs>
+    <!--
+    <contextualTabs>
+      <tabSet idMso="TabComposeTools">
+        <tab idMso="TabMessage">
+          <group id="TabMessageGroup" label="Jira">
+            <button id="btnJiraS" label="Create a Jira Issue"
+                 screentip="Text" onAction="OnJiraButton"
+                 supertip="Creates Jira issue from the mail."
+                 size="large" getImage="LoadImage"/>
+          </group>
+        </tab>
+      </tabSet>
+    </contextualTabs>
+    -->
+  </ribbon>
+</customUI>
+

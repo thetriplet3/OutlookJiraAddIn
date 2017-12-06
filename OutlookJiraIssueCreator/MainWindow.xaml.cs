@@ -7,6 +7,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,14 +31,13 @@ namespace OutlookJiraIssueCreator
         bool isAuthed = false;
 
         string[] labels;
-        string user = "tratlk";
-        string password = "t#aru1440118";
-        MailItem mail;
-        int labelIndex = 0;
 
-        public MainWindow()
+        MailItem mail;
+
+        public MainWindow(MailItem mail)
         {
             InitializeComponent();
+            this.mail = mail;
             DataContext = new Jira();
 
             worker = new BackgroundWorker();
@@ -154,13 +154,13 @@ namespace OutlookJiraIssueCreator
 
                 status = response.StatusCode;
                 if (status == HttpStatusCode.Created)
-                {/*
+                {
                     DirectoryInfo di = Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\OutlookJiraAddin\");
                     String savepath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\OutlookJiraAddin\" + "message" + ".msg";
                     mail.SaveAs(savepath);
-                    */
+                    
                     JsonObject jiraResponse = (JsonObject)SimpleJson.DeserializeObject(response.Content);
-                    /*
+                    
                     request = new RestRequest();
                     request.Resource = String.Format("/rest/api/2/issue/{0}/attachments", jiraResponse["key"]);
                     request.Method = Method.POST;
@@ -169,7 +169,7 @@ namespace OutlookJiraIssueCreator
                     request.AddFileBytes("file", File.ReadAllBytes(savepath), String.Format("{0}.msg", mail.Subject), "application/octet-stream");
 
                     response = restClient.Execute(request);
-                    */
+                    
                     String url = "http://jiratest/browse/" + jiraResponse["key"];
                     System.Diagnostics.Process.Start(url);
                     bReturn = true;
@@ -196,6 +196,16 @@ namespace OutlookJiraIssueCreator
             return bReturn;
         }
 
+        private void chbCopySubject_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void chbCopyBody_CheckedChanged(object sender, EventArgs e)
+        {
+           
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -215,7 +225,31 @@ namespace OutlookJiraIssueCreator
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.Reset();
+        }
 
+        private void chbCopySubject_Click(object sender, RoutedEventArgs e)
+        {
+            if (chbCopySubject.IsChecked == true)
+            {
+                this.txtSummary.Text = mail.Subject;
+            }
+            else
+            {
+                this.txtSummary.Text = null;
+            }
+        }
+
+        private void chbCopyBody_Click(object sender, RoutedEventArgs e)
+        {
+            if (chbCopyBody.IsChecked == true)
+            {
+                this.txtDesc.Text = mail.Body;
+            }
+            else
+            {
+                this.txtDesc.Text = null;
+            }
         }
     }
 }

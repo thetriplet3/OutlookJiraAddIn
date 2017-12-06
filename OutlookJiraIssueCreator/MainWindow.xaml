@@ -1,4 +1,4 @@
-﻿<Window x:Class="OutlookJiraIssueCreator.MainWindow"
+﻿<Window x:Name="JiraAddInBase" x:Class="OutlookJiraIssueCreator.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
         xmlns:domain="clr-namespace:OutlookJiraIssueCreator.Classes"
         xmlns:models="clr-namespace:OutlookJiraIssueCreator.Models"
         mc:Ignorable="d"
-        Title="MainWindow" Height="644.613" Width="673.98"
+        Title="Jira Issue Creator" Height="644.613" Width="673.98"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -15,14 +15,32 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="White"
-        FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize">
+        FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize" Topmost="True" WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- note you only need bring in these extra resource dictionaries when using non-default styles, so only bring them into your controls where the default style is not what you want -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <materialDesign:ColorZone x:Name="clzHeader" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                             Mode="PrimaryMid" DockPanel.Dock="Top" Height="61">
 
             <DockPanel>
-                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                        x:Name="MenuToggleButton" Visibility="Hidden"/>
                 <materialDesign:PopupBox x:Name="ppbSettings" DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="True">
                     <StackPanel>
                         <Grid>
@@ -169,8 +187,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Button x:Name="btnCreate" Content="Create Issue" Grid.Column="1" Grid.Row="0" Click="btnCreate_Click" Height="Auto" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,3,10,0"  />
-                    <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject"  Grid.Column="3" Grid.Row="0"  Height="24"/>
-                    <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" Grid.Column="3" Grid.Row="1"  Height="24"/>
+                    <CheckBox x:Name="chbCopySubject" Content="Copy Mail Subject"  Grid.Column="3" Grid.Row="0"  Height="24" Click="chbCopySubject_Click"/>
+                    <CheckBox x:Name="chbCopyBody" Content="Copy Mail Body" Grid.Column="3" Grid.Row="1"  Height="24" Click="chbCopyBody_Click"/>
                 </Grid>
             </Grid>
         </materialDesign:Card>
